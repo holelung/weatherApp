@@ -2,9 +2,20 @@ import * as Location from 'expo-location';
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Dimensions, Text, View, ActivityIndicator } from 'react-native';
+import { Fontisto } from "@expo/vector-icons";
 
 const API_KEY = "b0f19f92cddff3a3762ecc76d0a4917c";
 const { width : SCREEN_WIDTH} = Dimensions.get('window');
+
+const icons = {
+  Clouds: "cloudy",
+  Clear: "day-sunny",
+  Atmosphere: "cloudy-gusts",
+  Snow: "snow",
+  Rain: "rains",
+  Drizzle: "rain",
+  Thunderstorm: "lightning",
+} 
 
 console.log(SCREEN_WIDTH);
 
@@ -60,6 +71,7 @@ export default function App() {
             <Text style={styles.today}>{(day.dt_txt).slice(5, 7)}월 {(day.dt_txt).slice(8, 10)}일 {(day.dt_txt).slice(11, 13)}시</Text>
             <View style={styles.tempView}>
               <Text style={styles.temp}>{parseFloat(day.main.temp).toFixed(1)}</Text>
+               <Fontisto name={icons[day.weather[0].main] } size={58 } color="black" />
             </View>
             <Text style={styles.description}>{day.weather[0].main}</Text>
             <Text style={styles.tinyText}>{day.weather[0].description}</Text>
@@ -94,7 +106,7 @@ export default function App() {
       alignItems: "center", 
     },
     temp: {
-      fontSize: 158,
+      fontSize: 128,
     },
     description: {
       marginTop: -30, 
@@ -106,7 +118,12 @@ export default function App() {
     },
     tempView: {
       marginTop: 50, 
-      flexDirection: "row",
+      flexDirection: "row", 
+      alignItems: "center",
+      justifyContent: "space-around",
+      width: "100%", 
+      paddingLeft: 20,
+      paddingRight: 20,
     },
     celsius: {
       marginTop: 80,
